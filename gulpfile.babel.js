@@ -9,16 +9,16 @@ import source from 'vinyl-source-stream';
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
-gulp.task('html', [], () => {
+gulp.task('static', [], () => {
   const assets = $.useref.assets({searchPath: ['.']});
 
-  return gulp.src('*.html')
+  return gulp.src('./src/static/*.html')
     .pipe(assets)
-    .pipe($.if('*.js', $.uglify()))
-    .pipe($.if('*.css', $.minifyCss({compatibility: '*'})))
+    .pipe($.if('./src/scripts/*.js', $.uglify()))
+    .pipe($.if('./src/**/*.css', $.minifyCss({compatibility: '*'})))
     .pipe(assets.restore())
     .pipe($.useref())
-    .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
+    .pipe($.if('./src/static/*.html', $.minifyHtml({conditionals: true, loose: true})))
     .pipe(gulp.dest('demo'));
 });
 
@@ -31,8 +31,8 @@ gulp.task('scripts', [], () => {
     .pipe(gulp.dest('./demo'));
 });
 
-gulp.task('extras', () => {
-  return gulp.src(['*.svg']).pipe(gulp.dest('demo'));
+gulp.task('assets', () => {
+  return gulp.src(['./src/assets/*.*']).pipe(gulp.dest('demo'));
 });
 
 gulp.task('clean', del.bind(null, ['.tmp', 'demo']));
@@ -45,10 +45,16 @@ gulp.task('demo', ['build'], () => {
       baseDir: ['demo']
     }
   });
+
+  gulp.watch('./src/**/*.*', ['reload']);
 });
 
-gulp.task('build', ['scripts', 'html', 'extras'], () => {
-  return gulp.src('demo/**/*').pipe($.size({title: 'build', gzip: true}));
+gulp.task('build', ['scripts', 'static', 'assets'], () => {
+  return gulp.src('./demo/**/*').pipe($.size({title: 'build', gzip: true}));
+});
+
+gulp.task('reload', ['build'], () => {
+  browserSync.reload();
 });
 
 gulp.task('default', ['clean'], () => {

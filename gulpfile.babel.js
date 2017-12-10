@@ -1,4 +1,5 @@
 import gulp from 'gulp';
+import cleanCSS from 'gulp-clean-css';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync';
 import del from 'del';
@@ -15,7 +16,7 @@ gulp.task('static', [], () => {
   return gulp.src('./src/static/*.html')
     .pipe(assets)
     .pipe($.if('./src/scripts/*.js', $.uglify()))
-    .pipe($.if('./src/**/*.css', $.minifyCss({compatibility: '*'})))
+    .pipe($.if('./src/**/*.css', cleanCSS({compatibility: '*'})))
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.if('./src/static/*.html', $.minifyHtml({conditionals: true, loose: true})))
@@ -24,7 +25,7 @@ gulp.task('static', [], () => {
 
 gulp.task('scripts', [], () => {
   const b = browserify('./src/scripts/main.js')
-    .transform('babelify', {presets: ['es2015']});
+    .transform('babelify', {presets: ['env']});
 
   return b.bundle()
     .pipe(source('main.js'))

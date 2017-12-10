@@ -45,12 +45,12 @@ $(() => {
 
 		window.addEventListener('scroll', () => {
 			requestAnimationFrame(() => {
-				const scrollTop = document.body.scrollTop;
-				const scrollLeft = document.body.scrollLeft;
+				const scrollTop = window.scrollY;
+				const scrollLeft = window.scrollX;
 				const scrollVector = new Vector(scrollLeft, scrollTop);
 				const changeVector = oldScrollVector.sub(scrollVector);
 				oldScrollVector = scrollVector;
-				
+
 				parallaxLayers.forEach(layer => layer.displaceBy(changeVector));
 				scrollHeightElements.forEach(tweener => tweener.setCurrentHeight(scrollTop));
 			});

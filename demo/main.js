@@ -12356,12 +12356,12 @@
 },{}],2:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.DisplacementLayer = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _lodash = require('lodash');
 
@@ -12375,7 +12375,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var DisplacementLayer = exports.DisplacementLayer = function () {
 	function DisplacementLayer(element) {
-		var attenuationVector = arguments.length <= 1 || arguments[1] === undefined ? new _vector.Vector(1, 1) : arguments[1];
+		var attenuationVector = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new _vector.Vector(1, 1);
 
 		_classCallCheck(this, DisplacementLayer);
 
@@ -12402,12 +12402,12 @@ var DisplacementLayer = exports.DisplacementLayer = function () {
 },{"./vector":5,"lodash":1}],3:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.PathTweener = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _lodash = require('lodash');
 
@@ -12454,12 +12454,12 @@ var PathTweener = exports.PathTweener = function () {
 },{"./vector":5,"lodash":1}],4:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.ScrollHeightTweener = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _lodash = require('lodash');
 
@@ -12471,7 +12471,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var ScrollHeightTweener = exports.ScrollHeightTweener = function () {
 	function ScrollHeightTweener(tweener, activateAt, deactivateAt) {
-		var reverse = arguments.length <= 3 || arguments[3] === undefined ? false : arguments[3];
+		var reverse = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
 		_classCallCheck(this, ScrollHeightTweener);
 
@@ -12516,12 +12516,12 @@ var ScrollHeightTweener = exports.ScrollHeightTweener = function () {
 },{"lodash":1}],5:[function(require,module,exports){
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 exports.Vector = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _lodash = require('lodash');
 
@@ -12618,8 +12618,8 @@ $(function () {
 
 				window.addEventListener('scroll', function () {
 						requestAnimationFrame(function () {
-								var scrollTop = document.body.scrollTop;
-								var scrollLeft = document.body.scrollLeft;
+								var scrollTop = window.scrollY;
+								var scrollLeft = window.scrollX;
 								var scrollVector = new _vector.Vector(scrollLeft, scrollTop);
 								var changeVector = oldScrollVector.sub(scrollVector);
 								oldScrollVector = scrollVector;

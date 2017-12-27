@@ -12586,13 +12586,13 @@ $(function () {
 				//		const island = svgRoot.find("#island");
 				//		const islandBBox = island[0].getBBox();
 				//		const islandMidpoint = new Vector(islandBBox.x + (islandBBox.width / 2), islandBBox.y + (islandBBox.height / 2));
-				//		
+				//
 				//		const islandDisplacement = new DisplacementLayer(island, new Vector(1, 1));
 				//		const islandMouseMover = new ScrollHeightActivator(4111, new MouseMoveEventHandler(island, event => {
 				//		  if (!event.pageX) {
 				//		    return;
 				//		  }
-				//		 
+				//
 				//		  const mouseVector = new Vector(event.pageX, event.pageY);
 				//		  const changeVector = islandMidpoint.sub(mouseVector);
 				//		  islandDisplacement.displaceBy(changeVector);
@@ -12607,10 +12607,10 @@ $(function () {
 				var balloonBlue = new _displacementLayer.DisplacementLayer(svgRoot.find('#ballon_blue'), new _vector.Vector(1, 0.09));
 
 				var sun = new _pathTweener.PathTweener(svgRoot.find('#sun'), svgRoot.find('#sun_path'));
-				var sunHeightTweener = new _scrollHeightTweener.ScrollHeightTweener(sun, 537, 5103);
+				var sunHeightTweener = new _scrollHeightTweener.ScrollHeightTweener(sun, 337, 3380);
 
 				var airplane = new _pathTweener.PathTweener(svgRoot.find('#airplane'), svgRoot.find('#airplane_path'));
-				var airplaneHeightTweener = new _scrollHeightTweener.ScrollHeightTweener(airplane, 3254, 4111, false);
+				var airplaneHeightTweener = new _scrollHeightTweener.ScrollHeightTweener(airplane, 1925, 2670);
 
 				var parallaxLayers = [bigClouds, mediumClouds, smallClouds, balloonPink, balloonYellow, balloonBlue];
 				var scrollHeightElements = [sunHeightTweener, airplaneHeightTweener];
@@ -12618,9 +12618,8 @@ $(function () {
 
 				window.addEventListener('scroll', function () {
 						requestAnimationFrame(function () {
-								var scrollTop = window.scrollY;
-								var scrollLeft = window.scrollX;
-								var scrollVector = new _vector.Vector(scrollLeft, scrollTop);
+								console.log(window.scrollY);
+								var scrollVector = new _vector.Vector(window.scrollX, window.scrollY);
 								var changeVector = oldScrollVector.sub(scrollVector);
 								oldScrollVector = scrollVector;
 
@@ -12628,7 +12627,7 @@ $(function () {
 										return layer.displaceBy(changeVector);
 								});
 								scrollHeightElements.forEach(function (tweener) {
-										return tweener.setCurrentHeight(scrollTop);
+										return tweener.setCurrentHeight(window.scrollY);
 								});
 						});
 				});
